@@ -51,6 +51,8 @@ session_start();
 						url: 'create_child_comment.php', 
 						data: $('#' + e.target.id).serialize(), 
 						success: function () {
+							// Reload comment count
+							$("#comment_count").load(" #comment_count_content");
 							// Reload reply form
 							$("#load_child_form_" + $('#' + e.target.id).attr("value")).load(" #load_child_form_content_" + $('#' + e.target.id).attr("value"));
 							// Reload child comments

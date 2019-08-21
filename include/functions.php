@@ -143,8 +143,8 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 	
 	// Print comments
 	echo '<div class="container my-2">';
-	echo '	<div class="row">';
-	echo '		<div class="col-sm">';
+	echo '	<div class="row" id="comment_count">';
+	echo '		<div class="col-sm" id="comment_count_content">';
 	echo '			<h2>' . 'Comments: ' . $count . '</h2>';
 	echo '		</div>';
 	echo '	</div>';
