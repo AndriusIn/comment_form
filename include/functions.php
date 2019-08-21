@@ -188,7 +188,7 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 			echo '					</div>';
 			echo '				</div>';
 			echo '				<div class="card-body">';
-			echo '					' . $row["comment"];
+			echo '					' . htmlspecialchars($row["comment"]);
 			echo '				</div>';
 			echo '			</div>';
 			echo '		</div>';
@@ -305,7 +305,7 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 					echo '							</div>';
 					echo '						</div>';
 					echo '						<div class="card-body">';
-					echo '							' . $child_row["comment"];
+					echo '							' . htmlspecialchars($child_row["comment"]);
 					echo '						</div>';
 					echo '					</div>';
 					echo '				</div>';
