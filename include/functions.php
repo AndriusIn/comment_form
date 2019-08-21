@@ -134,7 +134,7 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 	}
 	
 	// Check if table does not exist
-	if (!mysqli_query($conn, "SHOW TABLES LIKE '".$table_name."'"))
+	if (!mysqli_query($conn, "SELECT * FROM " . $table_name . " LIMIT 1"))
 	{
 		echo '<div class="container">';
 		echo '	<div class="row">';

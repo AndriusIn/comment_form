@@ -52,10 +52,15 @@ switch ($commentValidation)
 
 if ($commentIsValid)
 {
-	// Creates database and tables if database doesn't exist
+	// Creates database if it doesn't exist
 	if (!mysqli_select_db(mysqli_connect(DB_SERVER, DB_USER, DB_PASS), DB_NAME))
 	{
 		createDatabase(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
+	}
+	
+	// Creates table if it doesn't exist
+	if (!mysqli_query($conn, "SELECT * FROM " . TBL_COMMENT . " LIMIT 1"))
+	{
 		createTable(DB_SERVER, DB_USER, DB_PASS, DB_NAME, TBL_COMMENT);
 	}
 	

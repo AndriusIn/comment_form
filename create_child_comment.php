@@ -53,13 +53,6 @@ switch ($commentValidation)
 
 if ($commentIsValid)
 {
-	// Creates database and tables if database doesn't exist
-	if (!mysqli_select_db(mysqli_connect(DB_SERVER, DB_USER, DB_PASS), DB_NAME))
-	{
-		createDatabase(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
-		createTable(DB_SERVER, DB_USER, DB_PASS, DB_NAME, TBL_COMMENT);
-	}
-	
 	// Create connection
 	$db = mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME);
 	
