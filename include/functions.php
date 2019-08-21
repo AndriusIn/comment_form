@@ -208,26 +208,50 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 			echo '				<div class="col-sm-1">';
 			echo '				</div>';
 			echo '				<div class="col-sm px-0">';
-			echo '					<form id="child_form_submit_' . $row["id"] . '" name="child_form_submit" value="' . $row["id"] . '">';
+			echo '					<form id="child_form_submit_' . $row["id"] . '" class="child_form_submit" value="' . $row["id"] . '">';
 			echo '						<input type="hidden" id="parent_id" name="parent_id" value="' . $row["id"] . '">';
 			echo '						<div class="container my-2">';
 			echo '							<div class="p-2 border border-primary rounded">';
 			echo '								<div class="row">';
 			echo '									<div class="col-sm">';
 			echo '										<label for="child_email"><b>Email</b></label>';
-			echo '										<input type="text" class="form-control rounded" id="child_email" name="child_email">';
+			if (isset($_SESSION["child_email_" . $row["id"]]))
+			{
+				echo '										<input type="text" class="form-control rounded" id="child_email" name="child_email" value="' . $_SESSION["child_email_" . $row["id"]] . '">';
+				unset($_SESSION["child_email_" . $row["id"]]);
+			}
+			else
+			{
+				echo '										<input type="text" class="form-control rounded" id="child_email" name="child_email">';
+			}
 			echo '									</div>';
 			echo '								</div>';
 			echo '								<div class="row">';
 			echo '									<div class="col-sm">';
 			echo '										<label for="child_name"><b>Name</b></label>';
-			echo '										<input type="text" class="form-control rounded" id="child_name" name="child_name">';
+			if (isset($_SESSION["child_name_" . $row["id"]]))
+			{
+				echo '										<input type="text" class="form-control rounded" id="child_name" name="child_name" value="' . $_SESSION["child_name_" . $row["id"]] . '">';
+				unset($_SESSION["child_name_" . $row["id"]]);
+			}
+			else
+			{
+				echo '										<input type="text" class="form-control rounded" id="child_name" name="child_name">';
+			}
 			echo '									</div>';
 			echo '								</div>';
 			echo '								<div class="row">';
 			echo '									<div class="col-sm">';
 			echo '										<label for="child_comment"><b>Comment</b></label>';
-			echo '										<textarea class="form-control rounded" id="child_comment" name="child_comment"></textarea>';
+			if (isset($_SESSION["child_comment_" . $row["id"]]))
+			{
+				echo '										<textarea class="form-control rounded" id="child_comment" name="child_comment">' . $_SESSION["child_comment_" . $row["id"]] . '</textarea>';
+				unset($_SESSION["child_comment_" . $row["id"]]);
+			}
+			else
+			{
+				echo '										<textarea class="form-control rounded" id="child_comment" name="child_comment"></textarea>';
+			}
 			echo '									</div>';
 			echo '								</div>';
 			echo '								<div class="row" id="child_error_' . $row["id"] . '">';
@@ -253,11 +277,12 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 			echo '		</div>';
 			echo '	</div>';
 			
-			echo '	<div id="load_child_comments_' . $row["id"] . '">';
-			echo '		<div id="load_child_comments_content_' . $row["id"] . '">';
 			// Get replies (child comments)
 			$sql = "SELECT name, date, comment FROM " . $table_name . " WHERE parent_id = " . $row["id"] . " ORDER BY date DESC";
 			$child_result = mysqli_query($conn, $sql);
+			
+			echo '	<div id="load_child_comments_' . $row["id"] . '">';
+			echo '		<div id="load_child_comments_content_' . $row["id"] . '">';
 			// Check if comment has replies (child comments)
 			if (mysqli_num_rows($child_result) > 0)
 			{

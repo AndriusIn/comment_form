@@ -44,19 +44,19 @@ session_start();
 			});
 			// Submit child comment
 			$(function () {
-				$('form[name="child_form_submit"]').on('submit', function (e) {
+				$(document).on('submit', '.child_form_submit', function (e) {
 					e.preventDefault();
 					$.ajax({
 						type: 'post', 
 						url: 'create_child_comment.php', 
 						data: $('#' + e.target.id).serialize(), 
 						success: function () {
-							// Reload comment count
-							$("#comment_count").load(" #comment_count_content");
 							// Reload reply form
 							$("#load_child_form_" + $('#' + e.target.id).attr("value")).load(" #load_child_form_content_" + $('#' + e.target.id).attr("value"));
 							// Reload child comments
 							$("#load_child_comments_" + $('#' + e.target.id).attr("value")).load(" #load_child_comments_content_" + $('#' + e.target.id).attr("value"));
+							// Reload comment count
+							$("#comment_count").load(" #comment_count_content");
 						}
 					});
 				});
