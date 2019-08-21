@@ -133,6 +133,24 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 		return;
 	}
 	
+	// Check if table does not exist
+	if (!mysqli_query($conn, "SHOW TABLES LIKE '".$table_name."'"))
+	{
+		echo '<div class="container">';
+		echo '	<div class="row">';
+		echo '		<div class="col-sm">';
+		echo '			<h2>' . 'Comments: 0' . '</h2>';
+		echo '		</div>';
+		echo '	</div>';
+		echo '	<div class="row">';
+		echo '		<div class="col-sm">';
+		echo '			No comments to display';
+		echo '		</div>';
+		echo '	</div>';
+		echo '</div>';
+		return;
+	}
+	
 	// Get comments that are not replies (is not a child comment)
 	$sql = "SELECT id, name, date, comment FROM " . $table_name . " WHERE parent_id IS NULL ORDER BY date DESC";
 	$result = mysqli_query($conn, $sql);
