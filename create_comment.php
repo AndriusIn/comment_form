@@ -36,6 +36,10 @@ switch ($nameValidation)
 		$commentIsValid = false;
 		$_SESSION["parent_errors"] .= "<br>" . "Name is empty!";
 		break;
+	case 2:
+		$commentIsValid = false;
+		$_SESSION["parent_errors"] .= "<br>" . "Name is not alphanumeric!";
+		break;
 	default:
 		break;
 }

@@ -79,6 +79,12 @@ function nameIsValid($name)
 		return 1;
 	}
 	
+	// Return 2 if name is not alphanumeric
+	if (!preg_match("/^[A-zÀ-ž0-9\s]+$/", $name))
+	{
+		return 2;
+	}
+	
 	// Returns 0 if name is valid
 	return 0;
 }

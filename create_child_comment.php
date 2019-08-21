@@ -49,6 +49,11 @@ switch ($nameValidation)
 		$_SESSION[$child_errors_session_name] .= "<br>" . "Name is empty!";
 		unset($_SESSION[$child_name_session_name]);
 		break;
+	case 2:
+		$commentIsValid = false;
+		$_SESSION[$child_errors_session_name] .= "<br>" . "Name is not alphanumeric!";
+		$_SESSION[$child_name_session_name] = $name;
+		break;
 	default:
 		$_SESSION[$child_name_session_name] = $name;
 		break;
