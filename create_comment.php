@@ -4,7 +4,7 @@ include("include/functions.php");
 
 session_start();
 
-$_SESSION["errors"] = "<p>" . "Errors:";
+$_SESSION["parent_errors"] = '<p style="display: inline; color: red;">' . "Errors:";
 
 $email = trim($_POST['email']);
 $name = trim($_POST['name']);
@@ -20,11 +20,11 @@ switch ($emailValidation)
 {
 	case 1:
 		$commentIsValid = false;
-		$_SESSION["errors"] .= "<br>" . "Email is empty!";
+		$_SESSION["parent_errors"] .= "<br>" . "Email is empty!";
 		break;
 	case 2:
 		$commentIsValid = false;
-		$_SESSION["errors"] .= "<br>" . "Email format is invalid!";
+		$_SESSION["parent_errors"] .= "<br>" . "Email format is invalid!";
 		break;
 	default:
 		break;
@@ -34,7 +34,7 @@ switch ($nameValidation)
 {
 	case 1:
 		$commentIsValid = false;
-		$_SESSION["errors"] .= "<br>" . "Name is empty!";
+		$_SESSION["parent_errors"] .= "<br>" . "Name is empty!";
 		break;
 	default:
 		break;
@@ -44,7 +44,7 @@ switch ($commentValidation)
 {
 	case 1:
 		$commentIsValid = false;
-		$_SESSION["errors"] .= "<br>" . "Comment is empty!";
+		$_SESSION["parent_errors"] .= "<br>" . "Comment is empty!";
 		break;
 	default:
 		break;
@@ -66,15 +66,15 @@ if ($commentIsValid)
 	$sql = "INSERT INTO " . TBL_COMMENT . " (email, name, comment) VALUES ('$email', '$name', '$comment')";
 	if (!mysqli_query($db, $sql))
 	{
-		$_SESSION["errors"] .= "<br>" . "Failed to insert comment into database:" . "<br>" . mysqli_error($db) . "</p>";
+		$_SESSION["parent_errors"] .= "<br>" . "Failed to insert comment into database:" . "<br>" . mysqli_error($db) . "</p>";
 	}
 	else
 	{
-		session_unset();
+		unset($_SESSION['parent_errors']);
 	}
 }
 else
 {
-	$_SESSION["errors"] .= "<br>" . "Submission failed!" . "</p>";
+	$_SESSION["parent_errors"] .= "<br>" . "Submission failed!" . "</p>";
 }
 ?>

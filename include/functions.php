@@ -177,88 +177,100 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 			echo '	</div>';
 			
 			// Print reply form
-			echo '	<div class="row" id="child_form_' . $row["id"] . '" style="display: none;">';
-			echo '		<div class="col-sm-1">';
-			echo '		</div>';
-			echo '		<div class="col-sm px-0">';
-			echo '			<form id="child_form_submit_' . $row["id"] . '" class="child_form_submit">';
-			echo '				<input type="hidden" id="parent_id" name="parent_id" value="' . $row["id"] . '">';
-			echo '				<div class="container my-2">';
-			echo '					<div class="p-2 border border-primary rounded">';
-			echo '						<div class="row">';
-			echo '							<div class="col-sm">';
-			echo '								<div class="input-group input-group-lg mb-2">';
-			echo '									<div class="input-group-prepend">';
-			echo '										<span class="input-group-text" style="width: 120px;">Email</span>';
-			echo '									</div>';
-			echo '									<input type="text" class="form-control rounded" id="child_email" name="child_email">';
-			echo '								</div>';
-			echo '							</div>';
-			echo '						</div>';
-			echo '						<div class="row">';
-			echo '							<div class="col-sm">';
-			echo '								<div class="input-group input-group-lg mb-2">';
-			echo '									<div class="input-group-prepend">';
-			echo '										<span class="input-group-text" style="width: 120px;">Name</span>';
-			echo '									</div>';
-			echo '									<input type="text" class="form-control rounded" id="child_name" name="child_name">';
-			echo '								</div>';
-			echo '							</div>';
-			echo '						</div>';
-			echo '						<div class="row">';
-			echo '							<div class="col-sm">';
-			echo '								<div class="input-group input-group-lg">';
-			echo '									<div class="input-group-prepend">';
-			echo '										<span class="input-group-text" style="width: 120px;">Comment</span>';
-			echo '									</div>';
-			echo '									<textarea class="form-control rounded" id="child_comment" name="child_comment"></textarea>';
-			echo '								</div>';
-			echo '							</div>';
-			echo '						</div>';
-			echo '						<div class="row">';
-			echo '							<div class="col-sm">';
-			echo '								<button class="btn btn-primary rounded mt-2" type="submit" style="width: 120px;">Submit</button>';
-			echo '							</div>';
-			echo '						</div>';
-			echo '					</div>';
+			echo '	<div id="load_child_form_' . $row["id"] . '">';
+			echo '		<div id="load_child_form_content_' . $row["id"] . '">';
+			if (isset($_SESSION["child_errors_" . $row["id"]]))
+			{
+				echo '			<div class="row" id="child_form_' . $row["id"] . '">';
+			}
+			else
+			{
+				echo '			<div class="row" id="child_form_' . $row["id"] . '" style="display: none;">';
+			}
+			echo '				<div class="col-sm-1">';
 			echo '				</div>';
-			echo '			</form>';
+			echo '				<div class="col-sm px-0">';
+			echo '					<form id="child_form_submit_' . $row["id"] . '" name="child_form_submit" value="' . $row["id"] . '">';
+			echo '						<input type="hidden" id="parent_id" name="parent_id" value="' . $row["id"] . '">';
+			echo '						<div class="container my-2">';
+			echo '							<div class="p-2 border border-primary rounded">';
+			echo '								<div class="row">';
+			echo '									<div class="col-sm">';
+			echo '										<label for="child_email"><b>Email</b></label>';
+			echo '										<input type="text" class="form-control rounded" id="child_email" name="child_email">';
+			echo '									</div>';
+			echo '								</div>';
+			echo '								<div class="row">';
+			echo '									<div class="col-sm">';
+			echo '										<label for="child_name"><b>Name</b></label>';
+			echo '										<input type="text" class="form-control rounded" id="child_name" name="child_name">';
+			echo '									</div>';
+			echo '								</div>';
+			echo '								<div class="row">';
+			echo '									<div class="col-sm">';
+			echo '										<label for="child_comment"><b>Comment</b></label>';
+			echo '										<textarea class="form-control rounded" id="child_comment" name="child_comment"></textarea>';
+			echo '									</div>';
+			echo '								</div>';
+			echo '								<div class="row" id="child_error_' . $row["id"] . '">';
+			echo '									<div class="col-sm" id="child_error_content_' . $row["id"] . '">';
+			// Prints message if errors were found
+			if (isset($_SESSION["child_errors_" . $row["id"]]))
+			{
+				echo '										' . $_SESSION["child_errors_" . $row["id"]];
+				unset($_SESSION["child_errors_" . $row["id"]]);
+			}
+			echo '									</div>';
+			echo '								</div>';
+			echo '								<div class="row">';
+			echo '									<div class="col-sm pt-2">';
+			echo '										<button class="btn btn-primary rounded" type="submit">Submit</button>';
+			echo '									</div>';
+			echo '								</div>';
+			echo '							</div>';
+			echo '						</div>';
+			echo '					</form>';
+			echo '				</div>';
+			echo '			</div>';
 			echo '		</div>';
 			echo '	</div>';
 			
+			echo '	<div id="load_child_comments_' . $row["id"] . '">';
+			echo '		<div id="load_child_comments_content_' . $row["id"] . '">';
 			// Get replies (child comments)
 			$sql = "SELECT name, date, comment FROM " . $table_name . " WHERE parent_id = " . $row["id"] . " ORDER BY date DESC";
 			$child_result = mysqli_query($conn, $sql);
-			
 			// Check if comment has replies (child comments)
 			if (mysqli_num_rows($child_result) > 0)
 			{
 				// Print replies (child comments)
 				while($child_row = mysqli_fetch_assoc($child_result))
 				{
-					echo '	<div class="row">';
-					echo '		<div class="col-sm-1">';
-					echo '		</div>';
-					echo '		<div class="col-sm">';
-					echo '			<div class="card">';
-					echo '				<div class="card-header">';
-					echo '					<div class="row">';
-					echo '						<div class="col-md-auto">';
-					echo '							<b>' . $child_row["name"] . '</b>';
+					echo '			<div class="row">';
+					echo '				<div class="col-sm-1">';
+					echo '				</div>';
+					echo '				<div class="col-sm">';
+					echo '					<div class="card">';
+					echo '						<div class="card-header">';
+					echo '							<div class="row">';
+					echo '								<div class="col-md-auto">';
+					echo '									<b>' . $child_row["name"] . '</b>';
+					echo '								</div>';
+					echo '								<div class="col">';
+					echo '									' . $child_row["date"];
+					echo '								</div>';
+					echo '							</div>';
 					echo '						</div>';
-					echo '						<div class="col">';
-					echo '							' . $child_row["date"];
+					echo '						<div class="card-body">';
+					echo '							' . $child_row["comment"];
 					echo '						</div>';
 					echo '					</div>';
 					echo '				</div>';
-					echo '				<div class="card-body">';
-					echo '					' . $child_row["comment"];
-					echo '				</div>';
 					echo '			</div>';
-					echo '		</div>';
-					echo '	</div>';
 				}
 			}
+			echo '		</div>';
+			echo '	</div>';
 		}
 	}
 	else

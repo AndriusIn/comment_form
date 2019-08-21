@@ -4,12 +4,12 @@ include("include/functions.php");
 
 session_start();
 
-$_SESSION["errors"] = "<p>" . "Errors:";
-
 $parent_id = $_POST['parent_id'];
 $email = trim($_POST['child_email']);
 $name = trim($_POST['child_name']);
 $comment = trim($_POST['child_comment']);
+
+$_SESSION["child_errors_" . $parent_id] = '<p style="display: inline; color: red;">' . "Errors:";
 
 $commentIsValid = true;
 
@@ -21,11 +21,11 @@ switch ($emailValidation)
 {
 	case 1:
 		$commentIsValid = false;
-		$_SESSION["errors"] .= "<br>" . "Email is empty!";
+		$_SESSION["child_errors_" . $parent_id] .= "<br>" . "Email is empty!";
 		break;
 	case 2:
 		$commentIsValid = false;
-		$_SESSION["errors"] .= "<br>" . "Email format is invalid!";
+		$_SESSION["child_errors_" . $parent_id] .= "<br>" . "Email format is invalid!";
 		break;
 	default:
 		break;
@@ -35,7 +35,7 @@ switch ($nameValidation)
 {
 	case 1:
 		$commentIsValid = false;
-		$_SESSION["errors"] .= "<br>" . "Name is empty!";
+		$_SESSION["child_errors_" . $parent_id] .= "<br>" . "Name is empty!";
 		break;
 	default:
 		break;
@@ -45,7 +45,7 @@ switch ($commentValidation)
 {
 	case 1:
 		$commentIsValid = false;
-		$_SESSION["errors"] .= "<br>" . "Comment is empty!";
+		$_SESSION["child_errors_" . $parent_id] .= "<br>" . "Comment is empty!";
 		break;
 	default:
 		break;
@@ -67,15 +67,15 @@ if ($commentIsValid)
 	$sql = "INSERT INTO " . TBL_COMMENT . " (parent_id, email, name, comment) VALUES ('$parent_id', '$email', '$name', '$comment')";
 	if (!mysqli_query($db, $sql))
 	{
-		$_SESSION["errors"] .= "<br>" . "Failed to insert comment into database:" . "<br>" . mysqli_error($db) . "</p>";
+		$_SESSION["child_errors_" . $parent_id] .= "<br>" . "Failed to insert comment into database:" . "<br>" . mysqli_error($db) . "</p>";
 	}
 	else
 	{
-		session_unset();
+		unset($_SESSION["child_errors_" . $parent_id]);
 	}
 }
 else
 {
-	$_SESSION["errors"] .= "<br>" . "Submission failed!" . "</p>";
+	$_SESSION["child_errors_" . $parent_id] .= "<br>" . "Submission failed!" . "</p>";
 }
 ?>
