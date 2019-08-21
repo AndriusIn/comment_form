@@ -60,7 +60,7 @@ function emailIsValid($email)
 	}
 	
 	// Return 2 if email is not well-formed
-    if (!filter_var($email, FILTER_VALIDATE_EMAIL))
+	if (!filter_var($email, FILTER_VALIDATE_EMAIL))
 	{
 		return 2;
 	}
@@ -80,7 +80,7 @@ function nameIsValid($name)
 	}
 	
 	// Return 2 if name is not alphanumeric
-	if (!preg_match("/^[A-zÀ-ž0-9\s]+$/", $name))
+	if (!preg_match("/^[\wÀ-ž\s]+$/", $name))
 	{
 		return 2;
 	}
