@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 21, 2019 at 06:05 PM
+-- Generation Time: Aug 22, 2019 at 09:49 AM
 -- Server version: 10.3.16-MariaDB
 -- PHP Version: 7.2.19
 
@@ -53,7 +53,8 @@ INSERT INTO `comment` (`id`, `parent_id`, `email`, `name`, `comment`, `date`) VA
 (9, 6, 'rytis.rytaitis@gmail.com', 'Rytis Rytaitis', 'Mano vardas Rytis.', '2019-08-21 11:55:18'),
 (10, NULL, 'dovydas.dovydaitis@gmail.com', 'Dovydas Dovydaitis', 'First!', '2019-08-21 11:56:08'),
 (11, 6, 'petras.petraitis@gmail.com', 'Petras Petraitis', 'Mano vardas Petras Petraitis.', '2019-08-21 12:14:21'),
-(12, 6, 'lukas.lukaitis@gmail.com', 'Lukas Lukaitis', 'My name is Lukas!', '2019-08-21 16:03:00');
+(12, 6, 'lukas.lukaitis@gmail.com', 'Lukas Lukaitis', 'My name is Lukas!', '2019-08-21 16:03:00'),
+(13, 10, 'aldas.aldaitis@gmail.com', 'Aldas Aldaitis', '    * White space allowed.', '2019-08-22 07:45:31');
 
 --
 -- Indexes for dumped tables
@@ -73,7 +74,7 @@ ALTER TABLE `comment`
 -- AUTO_INCREMENT for table `comment`
 --
 ALTER TABLE `comment`
-  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(6) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

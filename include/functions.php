@@ -7,17 +7,20 @@ function createDatabase($db_server, $db_user, $db_pass, $db_name)
 	// Check connection
 	if (!$conn)
 	{
-		$_SESSION["errors"] .= "<br>" . "Connection failed: " . mysqli_connect_error();
+		$_SESSION["parent_errors"] .= "<br>" . "Connection failed: " . mysqli_connect_error();
+		return 1;
 	}
 
 	// Create database
 	$sql = "CREATE DATABASE " . $db_name;
 	if (!mysqli_query($conn, $sql))
 	{
-		$_SESSION["errors"] .= "<br>" . "Error creating database:" . "<br>" . mysqli_error($conn);
+		$_SESSION["parent_errors"] .= "<br>" . "Error creating database:" . "<br>" . mysqli_error($conn);
+		return 2;
 	}
 	
 	mysqli_close($conn);
+	return 0;
 }
 
 function createTable($db_server, $db_user, $db_pass, $db_name, $table_name)
@@ -28,7 +31,8 @@ function createTable($db_server, $db_user, $db_pass, $db_name, $table_name)
 	// Check connection
 	if (!$conn)
 	{
-		$_SESSION["errors"] .= "<br>" . "Connection failed: " . mysqli_connect_error();
+		$_SESSION["parent_errors"] .= "<br>" . "Connection failed: " . mysqli_connect_error();
+		return 1;
 	}
 
 	// SQL to create table
@@ -43,10 +47,12 @@ function createTable($db_server, $db_user, $db_pass, $db_name, $table_name)
 
 	if (!mysqli_query($conn, $sql))
 	{
-		$_SESSION["errors"] .= "<br>" . "Error creating table:" . "<br>" . mysqli_error($conn);
+		$_SESSION["parent_errors"] .= "<br>" . "Error creating table:" . "<br>" . mysqli_error($conn);
+		return 2;
 	}
 
 	mysqli_close($conn);
+	return 0;
 }
 
 function emailIsValid($email)
