@@ -67,7 +67,7 @@ if ($commentIsValid)
 	}
 	
 	// Creates table if it doesn't exist
-	if (!mysqli_query($conn, "SELECT * FROM " . TBL_COMMENT . " LIMIT 1"))
+	if (!mysqli_query(mysqli_connect(DB_SERVER, DB_USER, DB_PASS, DB_NAME), "SELECT * FROM " . TBL_COMMENT . " LIMIT 1"))
 	{
 		if (createTable(DB_SERVER, DB_USER, DB_PASS, DB_NAME, TBL_COMMENT) !== 0)
 		{
