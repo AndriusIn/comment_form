@@ -200,7 +200,7 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 			echo '					</div>';
 			echo '				</div>';
 			echo '				<div class="card-body">';
-			echo '					' . htmlspecialchars($row["comment"]);
+			echo '					<p style="white-space: pre; display: inline;">' . htmlspecialchars($row["comment"]) . '</p>';
 			echo '				</div>';
 			echo '			</div>';
 			echo '		</div>';
@@ -317,7 +317,7 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 					echo '							</div>';
 					echo '						</div>';
 					echo '						<div class="card-body">';
-					echo '							' . htmlspecialchars($child_row["comment"]);
+					echo '							<p style="white-space: pre; display: inline;">' . htmlspecialchars($child_row["comment"]) . '</p>';
 					echo '						</div>';
 					echo '					</div>';
 					echo '				</div>';
