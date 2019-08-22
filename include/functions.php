@@ -200,7 +200,7 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 			echo '					</div>';
 			echo '				</div>';
 			echo '				<div class="card-body">';
-			echo '					<div style="font-family: monospace, monospace; white-space: pre-wrap;">' . htmlspecialchars($row["comment"]) . '</div>';
+			echo '					<div style="font-family: monospace, monospace; white-space: pre-wrap;">' . rtrim(htmlspecialchars($row["comment"])) . '</div>';
 			echo '				</div>';
 			echo '			</div>';
 			echo '		</div>';
@@ -317,7 +317,7 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 					echo '							</div>';
 					echo '						</div>';
 					echo '						<div class="card-body">';
-					echo '							<div style="font-family: monospace, monospace; white-space: pre-wrap;">' . htmlspecialchars($child_row["comment"]) . '</div>';
+					echo '							<div style="font-family: monospace, monospace; white-space: pre-wrap;">' . rtrim(htmlspecialchars($child_row["comment"])) . '</div>';
 					echo '						</div>';
 					echo '					</div>';
 					echo '				</div>';
