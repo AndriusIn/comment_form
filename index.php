@@ -74,7 +74,7 @@ session_start();
 		</div>
 		
 		<!-- Comment form -->
-		<form id="parent_form" class="needs-validation" novalidate>
+		<form id="parent_form">
 			<div class="my-2 container">
 				<div class="p-2 border border-primary rounded">
 					<div class="row">
@@ -92,7 +92,7 @@ session_start();
 					<div class="row">
 						<div class="col-sm">
 							<label for="comment"><b>Comment</b></label>
-							<textarea class="form-control rounded" id="comment" name="comment"></textarea>
+							<textarea class="form-control rounded" id="comment" name="comment" style="font-family: monospace, monospace;"></textarea>
 						</div>
 					</div>
 					<div class="row" id="parent_error">

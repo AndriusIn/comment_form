@@ -257,12 +257,12 @@ function printComments($db_server, $db_user, $db_pass, $db_name, $table_name)
 			echo '										<label for="child_comment"><b>Comment</b></label>';
 			if (isset($_SESSION["child_comment_" . $row["id"]]))
 			{
-				echo '										<textarea class="form-control rounded" id="child_comment" name="child_comment">' . $_SESSION["child_comment_" . $row["id"]] . '</textarea>';
+				echo '										<textarea class="form-control rounded" id="child_comment" name="child_comment" style="font-family: monospace, monospace;" rows="' . (substr_count($_SESSION["child_comment_" . $row["id"]], "\n") + 1) . '">' . $_SESSION["child_comment_" . $row["id"]] . '</textarea>';
 				unset($_SESSION["child_comment_" . $row["id"]]);
 			}
 			else
 			{
-				echo '										<textarea class="form-control rounded" id="child_comment" name="child_comment"></textarea>';
+				echo '										<textarea class="form-control rounded" id="child_comment" name="child_comment" style="font-family: monospace, monospace;"></textarea>';
 			}
 			echo '									</div>';
 			echo '								</div>';
