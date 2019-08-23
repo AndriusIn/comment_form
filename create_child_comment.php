@@ -84,11 +84,14 @@ if ($commentIsValid)
 		return;
 	}
 	
+	// Escapes special characters in a comment string
+	$comment = mysqli_real_escape_string($db, $comment);
+	
 	// Inserts comment into database
 	$sql = "INSERT INTO " . TBL_COMMENT . " (parent_id, email, name, comment) VALUES ('$parent_id', '$email', '$name', '$comment')";
 	if (!mysqli_query($db, $sql))
 	{
-		$_SESSION[$child_errors_session_name] .= "<br>" . "Failed to insert comment into database:" . "<br>" . mysqli_error($db) . "</p>";
+		$_SESSION[$child_errors_session_name] .= "<br>" . "Failed to insert comment into database:" . "<br>" . mysqli_error($db);
 		$_SESSION[$child_errors_session_name] .= "<br>" . "Submission failed!" . "</p>";
 		return;
 	}
